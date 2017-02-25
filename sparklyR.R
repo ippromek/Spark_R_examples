@@ -5,15 +5,38 @@ Sys.getenv('SPARK_HOME')
 
 
 devtools::install_github("rstudio/sparklyr")
+
 options("sparklyr.verbose")
 
 
 library(sparklyr)
 library(dplyr)
 config <- spark_config()
+config$sparklyr.cores.local<-2
+
+
+config = list(
+  default = list(
+    spark.submit.deployMode= "client",
+    spark.executor.instances= 20, 
+    spark.executor.memory= "2G",
+    spark.executor.cores= 2,
+    spark.driver.memory= "4G"))
+
+
+config = list(
+  default = list(
+    spark.executor.memory= "1G",
+    spark.executor.cores=2))
+
+
+
 config[["sparklyr.defaultPackages"]] <- NULL
 sc <- spark_connect(master = "spark://10.136.126.35:7077", version = "2.0.1",
-                    spark_home = spark_home_dir())
+                    spark_home = Sys.getenv('SPARK_HOME'))
+
+sc <- spark_connect(master = "spark://10.136.126.35:7077",version = "2.0.1", config = spark_config())
+
 
 
 spark_web(sc)
