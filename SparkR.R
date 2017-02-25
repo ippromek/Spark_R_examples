@@ -1,4 +1,5 @@
-
+devtools::install_github('apache/spark@v2.0.1', subdir='R/pkg')
+library(SparkR)
 
 if (nchar(Sys.getenv("SPARK_HOME")) < 1) {
   Sys.setenv(SPARK_HOME = "/home/spark")
@@ -10,3 +11,6 @@ df <- as.DataFrame(faithful)
 
 # Displays the first part of the SparkDataFrame
 head(df)
+
+sparkR.session(sparkPackages = "com.databricks:spark-avro_2.11:3.0.0")
+sparkR.session.stop()
