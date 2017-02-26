@@ -61,7 +61,7 @@ write.df(df=trip_fare_featSampled,
 
 
 
-people <- read.df("./examples/src/main/resources/people.json", source = "com.databricks.spark.csv", header = "true", inferSchema = "true")
+#people <- read.df("./examples/src/main/resources/people.json", source = "com.databricks.spark.csv", header = "true", inferSchema = "true")
 
 df <- read.df(csvPath, "csv", header = "true", inferSchema = "true", na.strings = "NA")
 

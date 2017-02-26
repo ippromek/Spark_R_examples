@@ -11,8 +11,7 @@ options("sparklyr.verbose")
 
 library(sparklyr)
 library(dplyr)
-config <- spark_config()
-config$sparklyr.cores.local<-2
+
 
 
 config = list(
@@ -35,7 +34,11 @@ config[["sparklyr.defaultPackages"]] <- NULL
 sc <- spark_connect(master = "spark://10.136.126.35:7077", version = "2.0.1",
                     spark_home = Sys.getenv('SPARK_HOME'))
 
-sc <- spark_connect(master = "spark://10.136.126.35:7077",version = "2.0.1", config = spark_config())
+
+config <- spark_config()
+config$spark.executor.cores<-1
+
+sc <- spark_connect(master = "spark://10.136.126.35:7077",version = "2.0.1", config = config)
 
 
 
